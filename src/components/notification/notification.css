@@ -1,0 +1,16 @@
+.notificationComponent {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  transition: visibility 0s, opacity 0.5s linear;
+  height: 100px;
+  z-index: 2; }
+  .notificationComponent p {
+    z-index: 2;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+    width: 400px;
+    padding: 10px;
+    margin: 10px auto; }

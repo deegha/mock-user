@@ -1,0 +1,25 @@
+.container {
+    width : 100%;
+    font-family: 'Roboto', sans-serif;
+
+    .wrapper {
+        display: flex;
+        margin: 0 auto;
+        padding: 20px;
+
+        height : 100px;
+        .usersList {
+            width : 60%;
+            border-right: 1px solid red;
+            padding: 20px;
+        }
+
+        .userFormContainer{
+            width: 40%;
+        }
+    }
+    .displayFlex {
+        display: flex;
+        justify-content: space-between;
+    }
+}
