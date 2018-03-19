@@ -1,7 +1,5 @@
 ## React js test
 
-### What is this project
-This project is a test given by Keen eye solutions
 
 ### How to set up
 - Clone the reposioty
