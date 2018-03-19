@@ -15,6 +15,9 @@ const userReducer = (state = initialState, action) => {
     switch (action.type) { 
         case actions.USER_REQUEST : 
             return {...state,loading : true}
+
+        case actions.USER_REQUEST_CLEAR :
+            return {...state,loading : false}
         
         case actions.EDIT_USER_SUCCESS :
             return {...state, loading : false, user : action.selectedUser, editing:true}

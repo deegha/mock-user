@@ -10,9 +10,9 @@ import {
   } from 'material-ui/Table'
 
 import { FlatButton } from 'material-ui'
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from 'material-ui/CircularProgress'
 
-const UsersList = ({usersList, editUser, editing, addUserForm, viewUser}) => 
+const UsersList = ({usersList, editUser, editing, addUserForm, viewUser, deleteUser}) => 
 usersList.loading?<CircularProgress style={{marginLeft:"300px"}} size={80} thickness={5} />:
     <Table>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
@@ -33,7 +33,7 @@ usersList.loading?<CircularProgress style={{marginLeft:"300px"}} size={80} thick
                 <TableRowColumn >
                     <FlatButton onClick={editUser(user.email)}  label="Edit" secondary={true} />
                     <FlatButton onClick={viewUser(user.email)} label="view" primary={true} />
-                    <FlatButton label="delete" default={true} />
+                    <FlatButton onClick={deleteUser("5a56fe9a1605fa1ab8677e14")} label="delete" default={true} />
                 </TableRowColumn>
             </TableRow>
         )} 

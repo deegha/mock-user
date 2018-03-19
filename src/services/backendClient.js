@@ -19,15 +19,20 @@ const post = (path, body) => fetch(backendBaseUrl + path, {
     body: JSON.stringify(body),
     headers: headers,
     method: "POST"
-}).then(checkStatusAndGetJSON);
+}).then(checkStatusAndGetJSON)  
 
 /**
- * Could have use the post for this as well by just changing the method, but i felt like this way its more cleaner. 
+ * Could have use the post for put and delete as well, by just changing the method, but i felt like this way its more cleaner. 
 */
 const put = (path, body) => fetch(backendBaseUrl + path, {
     body: JSON.stringify(body),
     headers: headers,
     method: "PUT"
+}).then(checkStatusAndGetJSON)
+
+const del = (path) => fetch(backendBaseUrl + path, {
+    headers: headers,
+    method: "DELETE"
 }).then(checkStatusAndGetJSON);
 
 export const getUserList = () => get("mock-user/list")
@@ -35,3 +40,5 @@ export const getUserList = () => get("mock-user/list")
 export const addNewUser = (data) => post("mock-user", data)
 
 export const updateUserCall = (data) => put("mock-user", data)
+
+export const deleteCall = (id) => del("mock-user/"+id)

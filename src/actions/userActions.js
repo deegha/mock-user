@@ -1,13 +1,14 @@
 import { getUsersList } from "./listActions"
 import { setFormValidity, clearAllValidation } from "./errorActions"
 import { createNotification } from "./notificationActions"  
-import { addNewUser, updateUserCall } from "../services/backendClient"
+import { addNewUser, updateUserCall, deleteCall } from "../services/backendClient"
 
 /*
 * Action constants
 */
 
 export const USER_REQUEST = "USER_REQUEST"
+export const USER_REQUEST_CLEAR = "USER_REQUEST_CLEAR"
 export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS"
 export const UPDATE_USER_SUCESS = "UPDATE_USER_SUCESS"
 export const UPDATE_ACTIVE = "UPDATE_ACTIVE"
@@ -24,13 +25,16 @@ export const userRequest = () => ({
     type : USER_REQUEST
 })
 
+export const clearUserRequest = () => ({
+    type : USER_REQUEST_CLEAR
+})
+
 export const editUserSuccess = selectedUser => ({
     type : EDIT_USER_SUCCESS,
     selectedUser
 })
 
 export const editUser = (id) => (dispatch, getState) => {
-    dispatch(userRequest())
     dispatch(setFormValidity(false))
     const { users } = getState().usersList
     /**
@@ -58,17 +62,22 @@ export const updateActive = (field, value) => ({
 
 export const addUser = () => (dispatch, getState) => {
     const {user} = getState().activeUser
-    
-    addNewUser(user).then(response => dispatch(createNotification("success", "New user created successfully")))
-        .catch(error => dispatch(createNotification("error", error.code)))
+    dispatch(userRequest())
+    addNewUser(user).then(response => {
+        dispatch(clearUserRequest())
+        dispatch(createNotification("success", "New user created successfully"))
+    }).catch(error => dispatch(createNotification("error", error.code)))
 } 
 
 export const updateUser = () => (dispatch, getState) => {
     const {user} = getState().activeUser
+    dispatch(userRequest())
     /**
-     * I have no idea why the auth fail, auth works for add user, but not this :/
+     * I have no idea why the auth fail, auth works for add user and list users, but not this :/
     */
-    updateUserCall(user).then(response => dispatch(createNotification("success", "User updated successfully")))
+    updateUserCall(user).then(response => {
+        dispatch(clearUserRequest())
+        dispatch(createNotification("success", "User updated successfully"))})
         .catch(error => dispatch(createNotification("error", error.code)))
 }
 
@@ -104,3 +113,9 @@ export const viewUser = (id) => (dispatch, getState) => {
     dispatch(viewUserOpen())
     dispatch(clearAllValidation())
 } 
+
+export const deleteUser = (id) => (dispatch, getState) => {
+    dispatch(userRequest())
+    deleteCall(id).then(res=> dispatch(createNotification("success", "User deleted successfully")))
+    .catch(error => dispatch(createNotification("error", error)))
+}
